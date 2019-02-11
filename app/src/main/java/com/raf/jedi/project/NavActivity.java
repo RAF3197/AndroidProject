@@ -1,9 +1,14 @@
 package com.raf.jedi.project;
 
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -32,6 +37,9 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
     private RecyclerView.Adapter mAdapter;
     private ModelContainer mModel;
 
+    private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
+    public static final String ACTION_PERMISSION_GRANTED = "action_permission_granted";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,15 +66,17 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+      /**  mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);*/
 
         setTitle("Recordings");
         mRecycleView = findViewById(R.id.listRecycleView);
         mRecycleView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecycleView.setLayoutManager(mLayoutManager);
+
+        getPermision();
 
     }
 
@@ -145,6 +155,8 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
     @Override
     protected void onResume() {
         super.onResume();
+
+
         mModel = ModelContainer.load(this);
         mModel.print();
 
@@ -165,5 +177,36 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         super.onPause();
 
         mModel.save(this);
+    }
+    private void getPermision(){
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.RECORD_AUDIO)!= PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,Manifest.permission.RECORD_AUDIO)){
+            }
+            else {
+                ActivityCompat.requestPermissions(this,new String[]{Manifest.permission.RECORD_AUDIO},REQUEST_RECORD_AUDIO_PERMISSION);
+            }
+        }
+        else {
+            onPermissionGranted();
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[],int[] grantResults) {
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            onPermissionGranted();
+        }
+    }
+
+    public void onPermissionGranted() {
+        Log.d("Permission","Granted");
+
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        Intent i = new Intent(this, NavActivity.class);
+        i.setAction(NavActivity.ACTION_PERMISSION_GRANTED);
+        startService(i);
     }
 }
