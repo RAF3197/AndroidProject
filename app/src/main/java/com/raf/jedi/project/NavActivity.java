@@ -57,12 +57,11 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
             public void onClick(View view) {
                 if (recording) {
                     stopRecording();
-                    recording = !recording;
                 }
                 else {
                     startRecording();
-                    recording = !recording;
                 }
+                recording = !recording;
             }
         });
 
@@ -148,9 +147,9 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
     private void startRecording() {
 
         mRecorder = new MediaRecorder();
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);
 
 
         mCurrentRecording = new AudioModel();
@@ -162,7 +161,8 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
 
 
         mCurrentRecording.creationTime = (String.valueOf(formDate.format(date)) +"_" + String.valueOf(formHour.format(date)));
-        String auxFileName = mFileName + String.valueOf(formDate.format(date)) + "_" +  String.valueOf(formHour.format(date));
+        String auxFileName = mFileName + "/" + String.valueOf(formDate.format(date)) + "_" +  String.valueOf(formHour.format(date)) + ".3gp";
+        Log.d("File name", auxFileName);
         mRecorder.setOutputFile(auxFileName);
         mCurrentRecording.path = auxFileName;
 
@@ -174,7 +174,6 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
             e.printStackTrace();
         }
 
-        mModel.save(NavActivity.this);
 
         mRecorder.start();
     }
@@ -183,7 +182,11 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         mRecorder.stop();
         mRecorder.release();
         mRecorder = null;
+        mModel.audios.add(mCurrentRecording);
+        mCurrentRecording = null;
         mModel.print();
+        mModel.save(this);
+        onResume();
     }
 
     @Override

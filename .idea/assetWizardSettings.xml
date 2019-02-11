@@ -51,11 +51,18 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="000000" />
+                                                <entry key="scalingPercent" value="221" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
                                         </value>
                                       </entry>
+                                    </map>
+                                  </option>
+                                  <option name="values">
+                                    <map>
+                                      <entry key="foregroundImage" value="$USER_HOME$/Downloads/grabadora-02.png" />
                                     </map>
                                   </option>
                                 </PersistentState>
@@ -96,6 +103,8 @@
                                             <option name="values">
                                               <map>
                                                 <entry key="color" value="ffffff" />
+                                                <entry key="paddingPercent" value="5" />
+                                                <entry key="trimmed" value="true" />
                                               </map>
                                             </option>
                                           </PersistentState>
@@ -105,9 +114,11 @@
                                   </option>
                                   <option name="values">
                                     <map>
-                                      <entry key="backgroundColor" value="fbfdff" />
-                                      <entry key="iconShape" value="NONE" />
-                                      <entry key="outputName" value="ic_voice" />
+                                      <entry key="assetType" value="IMAGE" />
+                                      <entry key="backgroundColor" value="010101" />
+                                      <entry key="iconShape" value="CIRCLE" />
+                                      <entry key="imageAsset" value="$USER_HOME$/Downloads/grabadora-02.png" />
+                                      <entry key="outputName" value="ic_icon" />
                                     </map>
                                   </option>
                                 </PersistentState>
