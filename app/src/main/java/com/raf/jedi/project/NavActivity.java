@@ -23,6 +23,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -30,15 +31,17 @@ import java.util.Date;
 
 public class NavActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
-    private MediaRecorder mRecorder = new MediaRecorder();
+    private MediaRecorder mRecorder = null;
     private AudioModel mCurrentRecording;
     private RecyclerView mRecycleView;
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.Adapter mAdapter;
     private ModelContainer mModel;
+    private Boolean recording = false;
 
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     public static final String ACTION_PERMISSION_GRANTED = "action_permission_granted";
+    private String mFileName;
 
 
     @Override
@@ -52,8 +55,14 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         rec.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                startRecording();
+                if (recording) {
+                    stopRecording();
+                    recording = !recording;
+                }
+                else {
+                    startRecording();
+                    recording = !recording;
+                }
             }
         });
 
@@ -66,15 +75,14 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-      /**  mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);*/
 
         setTitle("Recordings");
         mRecycleView = findViewById(R.id.listRecycleView);
         mRecycleView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecycleView.setLayoutManager(mLayoutManager);
+
+        mFileName = getExternalCacheDir().getAbsolutePath();
 
         getPermision();
 
@@ -138,6 +146,13 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
     }
 
     private void startRecording() {
+
+        mRecorder = new MediaRecorder();
+        mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
+        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
+        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
+
+
         mCurrentRecording = new AudioModel();
 
         Calendar cal = Calendar.getInstance();
@@ -147,9 +162,28 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
 
 
         mCurrentRecording.creationTime = (String.valueOf(formDate.format(date)) +"_" + String.valueOf(formHour.format(date)));
+        String auxFileName = mFileName + String.valueOf(formDate.format(date)) + "_" +  String.valueOf(formHour.format(date));
+        mRecorder.setOutputFile(auxFileName);
+        mCurrentRecording.path = auxFileName;
+
         Log.d("name",mCurrentRecording.creationTime);
 
+        try{
+            mRecorder.prepare();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
+        mModel.save(NavActivity.this);
+
+        mRecorder.start();
+    }
+
+    private void stopRecording() {
+        mRecorder.stop();
+        mRecorder.release();
+        mRecorder = null;
+        mModel.print();
     }
 
     @Override
@@ -202,11 +236,10 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
     public void onPermissionGranted() {
         Log.d("Permission","Granted");
 
-        mRecorder.setAudioSource(MediaRecorder.AudioSource.DEFAULT);
-        mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
-        mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
-        Intent i = new Intent(this, NavActivity.class);
+        return;
+
+       /* Intent i = new Intent(this, NavActivity.class);
         i.setAction(NavActivity.ACTION_PERMISSION_GRANTED);
-        startService(i);
+        startService(i);*/
     }
 }
