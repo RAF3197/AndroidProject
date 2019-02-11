@@ -1,5 +1,6 @@
 package com.raf.jedi.project;
 
+
 import android.media.MediaRecorder;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -16,7 +17,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import java.util.ArrayList;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class NavActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -58,14 +62,11 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.DEFAULT);
         mRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.DEFAULT);
 
-        setContentView(R.layout.content_nav);
         setTitle("Recordings");
         mRecycleView = findViewById(R.id.listRecycleView);
         mRecycleView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this);
         mRecycleView.setLayoutManager(mLayoutManager);
-
-
 
     }
 
@@ -129,11 +130,17 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
     private void startRecording() {
         mCurrentRecording = new AudioModel();
 
-        mCurrentRecording.creationTime = new Date().getTime();
+        Calendar cal = Calendar.getInstance();
+        Date date = cal.getTime();
+        DateFormat formDate = new SimpleDateFormat("dd:MM:yyy");
+        DateFormat formHour = new SimpleDateFormat("HH:mm:ss");
+
+
+        mCurrentRecording.creationTime = (String.valueOf(formDate.format(date)) +"_" + String.valueOf(formHour.format(date)));
+        Log.d("name",mCurrentRecording.creationTime);
 
 
     }
-
 
     @Override
     protected void onResume() {

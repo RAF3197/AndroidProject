@@ -1,7 +1,6 @@
 package com.raf.jedi.project;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     private final OnItemClickListener mListener;
@@ -32,7 +30,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
             super(v);
 
             mRoot = v;
-            mTextView = v.findViewById(R.id.tvTitle);
+            mTextView = v.findViewById(R.id.title);
         }
     }
 
