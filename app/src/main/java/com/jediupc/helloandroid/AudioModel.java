@@ -1,6 +1,5 @@
-package com.raf.jedi.project;
+package com.jediupc.helloandroid;
 
-import java.io.File;
 
 public class AudioModel {
 

@@ -1,4 +1,4 @@
-package com.raf.jedi.project;
+package com.jediupc.helloandroid;
 
 
 import android.Manifest;
@@ -9,7 +9,6 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.SystemClock;
 import android.support.annotation.RequiresApi;
 import android.support.design.widget.FloatingActionButton;
@@ -32,10 +31,9 @@ import android.widget.Chronometer;
 import android.widget.TextView;
 
 
-import org.w3c.dom.Text;
+import com.jediupc.helloandroid.R;
 
 import java.io.File;
-import java.io.FileDescriptor;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

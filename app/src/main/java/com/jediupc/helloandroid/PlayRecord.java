@@ -1,32 +1,23 @@
-package com.raf.jedi.project;
+package com.jediupc.helloandroid;
 
-import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatSeekBar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Chronometer;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import com.jediupc.helloandroid.R;
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 public class PlayRecord extends AppCompatActivity implements View.OnClickListener {
 
@@ -107,13 +98,11 @@ public class PlayRecord extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onStart() {
         super.onStart();
-        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onStop() {
         super.onStop();
-        EventBus.getDefault().unregister(this);
     }
 
 
@@ -160,10 +149,6 @@ public class PlayRecord extends AppCompatActivity implements View.OnClickListene
     }
 
 
-    @Subscribe
-    public void onTicksEvent(TicksEvent te) {
-        mSeekBar.setProgress((int) (100 * te.position / te.duration));
-    }
 
     @Override
     public void onClick(View view) {

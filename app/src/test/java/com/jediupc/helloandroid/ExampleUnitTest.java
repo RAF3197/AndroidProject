@@ -1,4 +1,4 @@
-package com.raf.jedi.project;
+package com.jediupc.helloandroid;
 
 import org.junit.Test;
 

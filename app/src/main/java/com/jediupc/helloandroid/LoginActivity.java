@@ -1,10 +1,13 @@
-package com.raf.jedi.project;
+package com.jediupc.helloandroid;
+
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.jediupc.helloandroid.R;
 
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
 

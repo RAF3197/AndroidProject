@@ -1,7 +1,7 @@
-package com.raf.jedi.project;
+package com.jediupc.helloandroid;
+
 
 import android.annotation.SuppressLint;
-import android.media.MediaPlayer;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +9,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import java.io.IOException;
+import com.jediupc.helloandroid.R;
+
 import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{

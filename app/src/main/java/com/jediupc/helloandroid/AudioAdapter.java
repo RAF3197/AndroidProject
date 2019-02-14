@@ -1,4 +1,4 @@
-package com.raf.jedi.project;
+package com.jediupc.helloandroid;
 
 import android.annotation.SuppressLint;
 import android.support.v7.widget.RecyclerView;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import com.jediupc.helloandroid.R;
 
 import java.util.ArrayList;
 

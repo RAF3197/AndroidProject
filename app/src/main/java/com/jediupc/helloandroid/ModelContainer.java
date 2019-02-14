@@ -1,4 +1,6 @@
-package com.raf.jedi.project;
+package com.jediupc.helloandroid;
+
+
 
 import android.content.Context;
 import android.util.Log;
@@ -37,7 +39,7 @@ public class ModelContainer implements Serializable {
 
     public void print() {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        Log.d("ModelContainer", gson.toJson(this));
+        Log.d("com.jediupc.helloandorid.ModelContainer", gson.toJson(this));
     }
 
     public void save(Context c) {
@@ -48,9 +50,9 @@ public class ModelContainer implements Serializable {
             writer.flush();
             writer.close();
         } catch (FileNotFoundException e) {
-            Log.d("ModelContainer", "error saving file", e);
+            Log.d("com.jediupc.helloandorid.ModelContainer", "error saving file", e);
         } catch (IOException e) {
-            Log.d("ModelContainer", "error saving file", e);
+            Log.d("com.jediupc.helloandorid.ModelContainer", "error saving file", e);
         }
     }
 
