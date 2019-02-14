@@ -321,7 +321,6 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
                 });
                 for (int pos : positions) {
                     mModel.audios.get(pos).removed=1;
-                    mModel.save(NavActivity.this);
                     mModel.audios.remove(pos);
                     mModel.save(NavActivity.this);
                     mAdapter.notifyItemRemoved(pos);
