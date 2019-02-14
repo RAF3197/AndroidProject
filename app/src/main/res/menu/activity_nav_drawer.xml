@@ -35,4 +35,14 @@
         </menu>
     </item>
 
+    <item android:title="More">
+        <menu>
+            <item
+                android:id="@+id/author"
+                android:icon="@drawable/ic_author"
+                android:title="Author" />
+
+        </menu>
+    </item>
+
 </menu>
