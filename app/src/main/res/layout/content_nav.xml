@@ -8,11 +8,12 @@
     tools:context=".NavActivity"
     tools:showIn="@layout/app_bar_nav">
 
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/listRecycleView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="0dp"
-        android:scrollbars="vertical" />
+        android:scrollbars="vertical"></android.support.v7.widget.RecyclerView>
 </RelativeLayout>

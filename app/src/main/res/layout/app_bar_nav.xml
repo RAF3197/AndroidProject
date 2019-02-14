@@ -32,4 +32,15 @@
         app:backgroundTint="@android:color/holo_red_dark"
 
         />
+
+    <Chronometer
+        android:id="@+id/chronometerTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="60sp"
+        android:textColor="@android:color/background_dark"
+        android:layout_gravity="bottom"
+        android:visibility="gone"
+        />
+
 </android.support.design.widget.CoordinatorLayout>
