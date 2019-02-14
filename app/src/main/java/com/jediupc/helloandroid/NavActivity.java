@@ -15,6 +15,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.view.ActionMode;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -37,8 +38,12 @@ import java.io.File;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 public class NavActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -52,6 +57,7 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
     private String fileName = null;
     private TextView cron;
     private Chronometer chronometer;
+    private ActionMode mActionMode;
 
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static final int REQ_PERM = 42;
@@ -273,6 +279,12 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
                 AudioModel mi = mModel.audios.get(pos);
                 playRecord(pos);
             }
+            @Override
+            public boolean onItemLongClick(View v, int pos) {
+                //Log.d("Gallery", "OnLongClick");
+                startSupportActionMode(mCallback);
+                return true;
+            }
 
 
 
@@ -280,6 +292,58 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
 
         mRecycleView.setAdapter(mAdapter);
     }
+
+    private ActionMode.Callback mCallback = new ActionMode.Callback() {
+        @Override
+        public boolean onCreateActionMode(ActionMode actionMode, Menu menu) {
+            actionMode.getMenuInflater().inflate(R.menu.record_context, menu);
+            mAdapter.setContextMode(true);
+            mActionMode = actionMode;
+            return true;
+        }
+
+        @Override
+        public boolean onPrepareActionMode(ActionMode actionMode, Menu menu) {
+            return false;
+        }
+
+        @Override
+        public boolean onActionItemClicked(ActionMode actionMode, MenuItem menuItem) {
+
+            if (menuItem.getItemId() == R.id.remove) {
+                mModel.removed += mAdapter.getSelectedPositions().size();
+                List<Integer> positions = new ArrayList<>(mAdapter.getSelectedPositions());
+                Collections.sort(positions, new Comparator<Integer>() {
+                    @Override
+                    public int compare(Integer o1, Integer o2) {
+                        return o2 - o1;
+                    }
+                });
+                for (int pos : positions) {
+                    mModel.audios.get(pos).removed=1;
+                    mModel.save(NavActivity.this);
+                    mModel.audios.remove(pos);
+                    mModel.save(NavActivity.this);
+                    mAdapter.notifyItemRemoved(pos);
+                }
+                mAdapter.getSelectedPositions().clear();
+                mAdapter.notifyDataSetChanged();
+                mActionMode.finish();
+                mModel.save(NavActivity.this);
+                onResume();
+
+            }
+
+            return true;
+        }
+
+        @Override
+        public void onDestroyActionMode(ActionMode actionMode) {
+            mAdapter.setContextMode(false);
+            mActionMode = null;
+
+        }
+    };
 
     private void playRecord(int pos) {
         Intent i = new Intent(this,PlayRecord.class);

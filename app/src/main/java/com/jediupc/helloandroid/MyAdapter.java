@@ -12,14 +12,34 @@ import android.widget.TextView;
 import com.jediupc.helloandroid.R;
 
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
     private final OnItemClickListener mListener;
     private ArrayList<AudioModel> mDataset;
+    private Set<Integer> mSelectedPositions = new HashSet<>();
+
+    public Set<Integer> getSelectedPositions() {
+        return mSelectedPositions;
+    }
+
+    private boolean mContextEnabled;
+
+    public void setContextMode(boolean mode) {
+        mContextEnabled = mode;
+        notifyDataSetChanged();
+        if (!mContextEnabled) {
+            mSelectedPositions = new HashSet<>();
+        }
+    }
+
 
 
     public interface OnItemClickListener {
         void onItemClick(View v, int pos);
+
+        boolean onItemLongClick(View v, int pos);
     }
 
     // Provide a reference to the views for each data item
@@ -60,7 +80,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
 
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(final MyViewHolder holder, int position) {
+    public void onBindViewHolder(final MyViewHolder holder, final int position) {
         // - get element from your dataset at this position
         // - replace the contents of the view with that element
         holder.mRoot.setOnClickListener(new View.OnClickListener() {
@@ -70,10 +90,25 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder>{
             }
         });
 
-        holder.mTextView.setText(mDataset.get(position).creationTime);
+        holder.mRoot.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                if (!mContextEnabled) {
+                    mSelectedPositions.add(position);
+                }
+
+                return mListener.onItemLongClick(v, position);
+            }
+
+        });
+
+        if (mDataset.get(position).removed==0){
+            holder.mTextView.setText(mDataset.get(position).creationTime);
 
 
-        holder.mTextView2.setText(msToString(mDataset.get(position).duration));
+            holder.mTextView2.setText(msToString(mDataset.get(position).duration));
+        }
+
 
     }
 

@@ -184,7 +184,7 @@ public class PlayRecord extends AppCompatActivity implements View.OnClickListene
     }
 
     private void stopMusic() {
-        mediaPlayer.stop();
+        if (mediaPlayer!=null) mediaPlayer.stop();
 
     }
     protected void initializeSeekBar(){
