@@ -312,6 +312,22 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.RECORD_AUDIO}, 200);
             }
         }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(
+            int requestCode,
+            String permissions[],
+            int[] grantResults) {
+
+        if (grantResults.length > 0
+                && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getPermisionMem();
+        }
+    }
+
+    private void getPermisionMem() {
         if (ContextCompat.checkSelfPermission(this,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 != PackageManager.PERMISSION_GRANTED) {
@@ -324,8 +340,6 @@ public class NavActivity extends AppCompatActivity implements NavigationView.OnN
             }
         }
     }
-
-
 
 
 }
