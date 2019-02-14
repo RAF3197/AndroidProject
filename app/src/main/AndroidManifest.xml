@@ -15,7 +15,7 @@
         <activity android:name="com.jediupc.helloandroid.PlayRecord"></activity>
         <activity
             android:name="com.jediupc.helloandroid.NavActivity"
-            android:label="@string/title_activity_nav"
+            android:label="Voice Recorder"
             android:theme="@style/AppTheme.NoActionBar">
 
             <intent-filter>
