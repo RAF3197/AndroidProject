@@ -1,10 +1,4 @@
 pipeline {
-    def qualityGateValidation(qg) {
-  if (qg.status != 'OK') {
-    return true
-  }
-  return false
-}
     agent {
         docker { image 'raf97/androidprojectbuilder:latest' }
     }
@@ -40,10 +34,10 @@ pipeline {
                           -Dsonar.password=19970331 \
                           -Dsonar.exclusions=dependency-check-*,report-*"
                 }
-                timeout(time: 5, unit: 'MINUTES') {
+                //timeout(time: 5, unit: 'MINUTES') {
                     // In case of SonarQube failure or direct timeout exceed, stop Pipeline
-                    waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate())
-                }
+                //    waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate())
+               // }
             }
         }
 
