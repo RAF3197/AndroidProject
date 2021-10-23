@@ -1,10 +1,18 @@
 pipeline {
-    agent {
-        docker { image 'raf97/androidprojectbuilder:latest' }
-    }
-
     tools {
         dockerTool 'docker'
+    }
+
+    stages {
+        stage('userAdd') {
+            steps {
+                sh 'sudo usermod -a -G docker jenkins'
+            }
+        }
+    }
+
+    agent {
+        docker { image 'raf97/androidprojectbuilder:latest' }
     }
 
     stages {
