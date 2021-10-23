@@ -3,6 +3,11 @@ pipeline {
         dockerTool 'docker'
     }
 
+    stage('Initialize') {
+        def dockerHome = tool 'docker'
+        env.PATH = "${dockerHome}/bin:${env.PATH}"
+    }
+
     agent {
         docker { image 'androidsdk/android-30:latest' }
     }
@@ -17,6 +22,7 @@ pipeline {
 
         stage('Clean and Build') {
             steps {
+                sh 'docker -v'
                 sh './gradlew clean assembleDebug'
             }
         }
