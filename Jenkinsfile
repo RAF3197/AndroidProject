@@ -1,11 +1,8 @@
 pipeline {
     // Specify which agent to use
-    agent { any }
-    tools {
-      androidSdk 'ANDROID_SDK'
-    }
+    agent any
     environment {
-        ANDROID_SDK_HOME = "/var/lib/jenkins/androidSdk/cmdline-tools/"
+        ANDROID_SDK_HOME = tool name: 'ANDROID_SDK', type: 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
 
     }
 
