@@ -11,11 +11,11 @@ pipeline {
             }
         }
 
-        stage('Clean and Build') {
+        /*stage('Clean and Build') {
             steps {
                 sh './gradlew clean assembleDebug'
             }
-        }
+        }*/
 
         stage('scan') {
             environment {
@@ -27,9 +27,9 @@ pipeline {
                 withSonarQubeEnv('sonar') {
                     // Execute the SonarQube scanner with desired flags
                     sh "${scannerHome}/bin/sonar-scanner \
-                          -Dsonar.projectKey=SocialOpenData:Test \
-                          -Dsonar.projectName=SocialOpenData \
-                          -Dsonar.host.url=http://sonarQube:9000 \
+                          -Dsonar.projectKey=SocialOpenDataAndroid:Test \
+                          -Dsonar.projectName=SocialOpenDataAndroid \
+                          -Dsonar.host.url=http://localhost:9000 \
                           -Dsonar.login=admin \
                           -Dsonar.password=19970331 \
                           -Dsonar.exclusions=dependency-check-*,report-*"
