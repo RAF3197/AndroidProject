@@ -28,7 +28,6 @@ pipeline {
                 sh "${env.ANDROID_SDK_ROOT}/cmdline-tools/bin/sdkmanager --sdk_root=/var/jenkins_home/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/ANDROID_SDK/cmdline-tools/ "+'"platforms;android-30"'
                 sh "${env.ANDROID_SDK_ROOT}/cmdline-tools/bin/sdkmanager --sdk_root=/var/jenkins_home/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/ANDROID_SDK/cmdline-tools/ --update"
                 sh "${env.ANDROID_SDK_ROOT}/cmdline-tools/bin/sdkmanager --sdk_root=/var/jenkins_home/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/ANDROID_SDK/cmdline-tools/ --licenses"
-                sh "${env.ANDROID_SDK_ROOT}/cmdline-tools/bin/sdkmanager --licenses"
                 
                 sh './gradlew assembleDebug'
             }
