@@ -18,7 +18,7 @@ pipeline {
 
                 // ANDROID SDK
                 echo 'Setting the ANDROID_HOME env var...'
-                sh "export ANDROID_HOME=${env.ANDROID_SDK_HOME}"
+                sh "export ANDROID_HOME=${env.ANDROID_SDK_HOME}/cmdline-tools"
                 echo "ANDROID_HOME location is: ${env.ANDROID_HOME}"
 
                 // Gradle Android SDK location
