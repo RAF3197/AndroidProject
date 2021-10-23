@@ -3,19 +3,17 @@ pipeline {
         dockerTool 'docker'
     }
 
+    agent {
+        docker { image 'raf97/androidprojectbuilder:latest' }
+    }
+
     stages {
         stage('userAdd') {
             steps {
                 sh 'sudo usermod -a -G docker jenkins'
             }
         }
-    }
 
-    agent {
-        docker { image 'raf97/androidprojectbuilder:latest' }
-    }
-
-    stages {
         stage('Checkout') {
             steps {
                 // Get Github repo using Github credentials (previously added to Jenkins credentials)
