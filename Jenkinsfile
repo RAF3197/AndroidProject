@@ -1,6 +1,6 @@
 pipeline {
     tools {
-        docker 'docker'
+        dockerTool 'docker'
     }
 
     agent {
