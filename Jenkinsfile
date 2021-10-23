@@ -4,6 +4,11 @@ pipeline {
     }
 
     stages {
+        stage('Initialize') {
+            def dockerHome = tool 'docker'
+            env.PATH = "${dockerHome}/bin:${env.PATH}"
+        }
+
         stage('Checkout') {
             steps {
                 // Get Github repo using Github credentials (previously added to Jenkins credentials)
