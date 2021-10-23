@@ -1,4 +1,8 @@
 pipeline {
+    tools {
+        docker 'docker'
+    }
+
     agent {
         docker { image 'androidsdk/android-30:latest' }
     }
