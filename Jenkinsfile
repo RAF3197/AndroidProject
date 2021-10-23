@@ -1,13 +1,9 @@
 pipeline {
-    agent { label 'linux' }
+    agent {
+        label { image 'raf97/androidprojectbuilder:latest' }
+    }
 
     stages {
-        stage('userAdd') {
-            steps {
-                sh 'sudo usermod -a -G docker jenkins'
-            }
-        }
-
         stage('Checkout') {
             steps {
                 // Get Github repo using Github credentials (previously added to Jenkins credentials)
@@ -17,7 +13,6 @@ pipeline {
 
         stage('Clean and Build') {
             steps {
-                sh 'docker -v'
                 sh './gradlew clean assembleDebug'
             }
         }
