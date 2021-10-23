@@ -4,7 +4,7 @@ pipeline {
 
     tools{
         gradle 'gradle'
-        ANDROID_SDK 'com.cloudbees.jenkins.plugins.customtools.CustomTool'
+        ANDROID_SDK 'ANDROID_SDK'
     }
 
     environment {
