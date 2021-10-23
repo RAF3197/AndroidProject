@@ -28,8 +28,8 @@ pipeline {
                 sh "export ANDROID_SDK_ROOT=/var/jenkins_home/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/ANDROID_SDK/cmdline-tools/"
                 sh "export SDK_ROOT=/var/jenkins_home/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/ANDROID_SDK/cmdline-tools/"
                 sh "export ANDROID_HOME=/var/jenkins_home/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/ANDROID_SDK/cmdline-tools/"
-                //sh "${env.ANDROID_SDK_ROOT}/cmdline-tools/bin/sdkmanager --sdk_root=/var/jenkins_home/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/ANDROID_SDK/cmdline-tools/ --update"
-                sh "yes | ${env.ANDROID_SDK_ROOT}/cmdline-tools/bin/sdkmanager --sdk_root=/var/jenkins_home/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/ANDROID_SDK/cmdline-tools/ --licenses"
+                sh "${env.ANDROID_SDK_ROOT}/cmdline-tools/bin/sdkmanager --sdk_root=/var/jenkins_home/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/ANDROID_SDK/cmdline-tools/sdkmanager --update"
+                sh "yes | ${env.ANDROID_SDK_ROOT}/cmdline-tools/bin/sdkmanager --sdk_root=/var/jenkins_home/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/ANDROID_SDK/cmdline-tools/sdkmanager --licenses"
                 sh "ls -la /var/jenkins_home/tools/com.cloudbees.jenkins.plugins.customtools.CustomTool/ANDROID_SDK/cmdline-tools/licenses"
                 sh './gradlew assembleDebug'
             }
