@@ -1,11 +1,5 @@
 pipeline {
-    tools {
-        dockerTool 'docker'
-    }
-
-    agent {
-        docker { image 'raf97/androidprojectbuilder:latest' }
-    }
+    agent { label 'linux' }
 
     stages {
         stage('userAdd') {
