@@ -1,7 +1,7 @@
 pipeline {
-    agent {
-        docker { image 'androidsdk/android-30:latest' }
-    }
+        agent any
+
+    docker { image 'androidsdk/android-30:latest' }
 
     stages {
         stage('Checkout') {
