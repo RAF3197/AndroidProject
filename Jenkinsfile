@@ -1,16 +1,6 @@
 pipeline {
-    tools {
-        dockerTool 'docker'
-    }
-    stages {
-        stage('Initialize') {
-            def dockerHome = tool 'docker'
-            env.PATH = "${dockerHome}/bin:${env.PATH}"
-        }
-    }
-
     agent {
-        docker { image 'androidsdk/android-30:latest' }
+        docker { image 'raf97/androidprojectbuilder:latest' }
     }
 
     stages {
