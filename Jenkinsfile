@@ -14,7 +14,8 @@ pipeline {
 
         stage('Clean and Build') {
             steps {
-                sh "export ANDROID_SDK_ROOT=${env.ANDROID_SDK_ROOT}/cmdline-tools/"
+                sh "export ANDROID_SDK_ROOT=${env.ANDROID_SDK_ROOT}/cmdline-tools"
+                sh "yes | ${env.ANDROID_SDK_ROOT}/cmdlinetools/bin/sdkmanager --licenses"
                 sh './gradlew assembleDebug'
             }
         }
