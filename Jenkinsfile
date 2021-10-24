@@ -34,6 +34,7 @@ pipeline {
                           -Dsonar.login=admin \
                           -Dsonar.sources=app/src/main \
                           -Dsonar.password=19970331 \
+                          -Dsonar.java.binaries=app/build \
                           -Dsonar.exclusions=dependency-check-*,report-*"
                 }
             //timeout(time: 5, unit: 'MINUTES') {
