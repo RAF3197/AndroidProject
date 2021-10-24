@@ -21,6 +21,7 @@ pipeline {
             environment {
                 // Previously defined in the Jenkins "Global Tool Configuration"
                 scannerHome = tool 'sonar'
+                sh './gradlew clean'
             }
             steps {
                 // "sonarqube" is the server configured in "Configure System"
@@ -35,10 +36,10 @@ pipeline {
                           -Dsonar.password=19970331 \
                           -Dsonar.exclusions=dependency-check-*,report-*,**/target/classes"
                 }
-                //timeout(time: 5, unit: 'MINUTES') {
-                    // In case of SonarQube failure or direct timeout exceed, stop Pipeline
-                //    waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate())
-               // }
+            //timeout(time: 5, unit: 'MINUTES') {
+            // In case of SonarQube failure or direct timeout exceed, stop Pipeline
+            //    waitForQualityGate abortPipeline: qualityGateValidation(waitForQualityGate())
+            // }
             }
         }
 
