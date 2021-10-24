@@ -29,7 +29,7 @@ pipeline {
                     sh "${scannerHome}/bin/sonar-scanner \
                           -Dsonar.projectKey=SocialOpenDataAndroid:Test \
                           -Dsonar.projectName=SocialOpenDataAndroid \
-                          -Dsonar.host.url=http://sonarQube:9000 \
+                          -Dsonar.host.url=http://172.22.0.2:9000 \
                           -Dsonar.login=admin \
                           -Dsonar.password=19970331 \
                           -Dsonar.exclusions=dependency-check-*,report-*"
