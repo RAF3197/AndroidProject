@@ -3,7 +3,7 @@ FROM openjdk:11-jdk
 ENV SDK_HOME /usr/local
 
 RUN apt-get --quiet update --yes
-RUN apt-get --quiet install --yes wget tar unzip lib32stdc++6 lib32z1
+RUN apt-get --quiet install --yes wget tar unzip
 RUN apt-get --quiet install --yes libqt5widgets5 usbutils
 
 # Gradle
