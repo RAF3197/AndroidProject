@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'raf97/androidprojectbuilder:arm' }
+        docker { image 'raf97/androidprojectbuilder:latest' }
     }
 
     stages {
@@ -32,8 +32,9 @@ pipeline {
                           -Dsonar.projectName=SocialOpenDataAndroid \
                           -Dsonar.host.url=http://192.168.1.44:9000 \
                           -Dsonar.login=admin \
+                          -Dsonar.sources=app/src/main \
                           -Dsonar.password=19970331 \
-                          -Dsonar.exclusions=dependency-check-*,report-*,*.java"
+                          -Dsonar.exclusions=dependency-check-*,report-*"
                 }
             //timeout(time: 5, unit: 'MINUTES') {
             // In case of SonarQube failure or direct timeout exceed, stop Pipeline
