@@ -31,8 +31,9 @@ pipeline {
                           -Dsonar.projectName=SocialOpenDataAndroid \
                           -Dsonar.host.url=http://192.168.1.44:9000 \
                           -Dsonar.login=admin \
+                          -Dsonar.sources=src/main/java/ \
                           -Dsonar.password=19970331 \
-                          -Dsonar.exclusions=dependency-check-*,report-*"
+                          -Dsonar.exclusions=dependency-check-*,report-*,**/target/classes"
                 }
                 //timeout(time: 5, unit: 'MINUTES') {
                     // In case of SonarQube failure or direct timeout exceed, stop Pipeline
