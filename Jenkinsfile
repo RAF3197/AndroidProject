@@ -17,6 +17,16 @@ pipeline {
             }
         }
 
+        stage('dependencyCheck') {
+            environment {
+                checker = tool 'Depen-Check'
+            }
+            steps {
+                sh "${checker}/bin/dependency-check.sh -s /var/lib/jenkins/workspace/SocialOpenDataAndroid -f ALL"
+                dependencyCheckPublisher pattern: 'dependency-check-report.xml'
+            }
+        }
+
         stage('scan') {
             environment {
                 // Previously defined in the Jenkins "Global Tool Configuration"
