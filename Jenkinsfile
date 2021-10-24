@@ -11,11 +11,11 @@ pipeline {
             }
         }
 
-        /*stage('Clean and Build') {
+        stage('Clean and Build') {
             steps {
                 sh './gradlew clean assembleDebug'
             }
-        }*/
+        }
 
         stage('scan') {
             environment {
