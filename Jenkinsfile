@@ -23,7 +23,7 @@ pipeline {
                 scannerHome = tool 'sonar'
             }
             steps {
-                sh './gradlew clean'
+                //sh './gradlew clean'
                 // "sonarqube" is the server configured in "Configure System"
                 withSonarQubeEnv('sonar') {
                     // Execute the SonarQube scanner with desired flags
@@ -33,7 +33,7 @@ pipeline {
                           -Dsonar.host.url=http://192.168.1.44:9000 \
                           -Dsonar.login=admin \
                           -Dsonar.password=19970331 \
-                          -Dsonar.exclusions=dependency-check-*,report-*,**/target/classes"
+                          -Dsonar.exclusions=dependency-check-*,report-*,*.java"
                 }
             //timeout(time: 5, unit: 'MINUTES') {
             // In case of SonarQube failure or direct timeout exceed, stop Pipeline
