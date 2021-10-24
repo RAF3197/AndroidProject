@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        docker { image 'raf97/androidprojectbuilder:latest' }
+        docker { image 'raf97/androidprojectbuilder:arm' }
     }
 
     stages {
