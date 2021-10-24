@@ -21,9 +21,9 @@ pipeline {
             environment {
                 // Previously defined in the Jenkins "Global Tool Configuration"
                 scannerHome = tool 'sonar'
-                sh './gradlew clean'
             }
             steps {
+                sh './gradlew clean'
                 // "sonarqube" is the server configured in "Configure System"
                 withSonarQubeEnv('sonar') {
                     // Execute the SonarQube scanner with desired flags
