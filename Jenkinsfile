@@ -22,7 +22,7 @@ pipeline {
                 checker = tool 'Depen-Check'
             }
             steps {
-                sh "${checker}/bin/dependency-check.sh -s /var/lib/jenkins/workspace/SocialOpenDataAndroid -f ALL"
+                sh "${checker}/bin/dependency-check.sh -s /var/jenkins_home/workspace/SocialOpenDataAndroid -f ALL"
                 dependencyCheckPublisher pattern: 'dependency-check-report.xml'
             }
         }
